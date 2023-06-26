@@ -1,0 +1,41 @@
+<h1>Courses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Registration Fee</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= course.title %></td><br>
+        <td><%= course.description %></td><br>
+        <td><%= course.registration_fee %></td><br>
+        <td><%= link_to 'Show', course %></td>
+        <td><%= link_to 'Edit', edit_course_path(course) %></td>
+        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Enroll', enroll_course_path(course), method: :post %></td>
+
+
+        <td>
+      <% if @enrolled_course_ids.include?(course.id) %>
+        <%= link_to 'Enrolled', course, disabled: true, class: 'disabled' %>
+      <% else %>
+        <%= link_to 'Enroll', enroll_course_path(course), method: :post, data: { confirm: 'Are you sure you want to enroll in this course?' } %>
+
+      <% end %>
+    </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Course', new_course_path %>
